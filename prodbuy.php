@@ -16,7 +16,9 @@ $prodid=$_GET['u_prod_id'];
 echo "<p>Selected product Id: ".$prodid;
 
 //create a $SQL variable and populate it with a SQL statement that retrieves product details
-$SQL="select prodId, prodName, prodPicNameLarge, prodDescribLong, prodPrice, prodQuantity from Product where prodId =".$prodid;
+$SQL="SELECT prodId, prodName, prodPicNameLarge, prodDescribLong, prodPrice, prodQuantity 
+      FROM Product 
+      WHERE prodId =".$prodid;
 //run SQL query for connected DB or exit and display error message
 $exeSQL=mysqli_query($conn, $SQL) or die (mysqli_error($conn));
 
@@ -24,8 +26,8 @@ echo "<table style='border: 0px'>";
 //create an array of records (2 dimensional variable) called $arrayp.
 //populate it with the records retrieved by the SQL query previously executed.
 //Iterate through the array i.e while the end of the array has not been reached, run through it
-while ($arrayp=mysqli_fetch_array($exeSQL))
-{
+$arrayp=mysqli_fetch_array($exeSQL);
+
   echo "<tr>";
   echo "<td style='border: 0px'>";
   //make the image into an anchor to prodbuy.php and pass the product id by URL (the id from the array)
@@ -60,7 +62,7 @@ while ($arrayp=mysqli_fetch_array($exeSQL))
 
   echo "</td>";
   echo "</tr>";
-}
+
 echo "</table>";
 
 include ("footfile.html"); //include head layout
