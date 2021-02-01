@@ -41,7 +41,7 @@ $arrayp=mysqli_fetch_array($exeSQL);
 
   echo "<p><h5>".$arrayp['prodName']."</h5>"; //display product name as contained in the array
   echo "<p class='padLeft-15'>".$arrayp['prodDescribLong']."</p>"; //display description
-  echo "<p class='padLeft-15' style='font-weight: bold; font-size: 1.2em'>£".$arrayp['prodPrice']."</p>"; //display price
+  echo "<p class='padLeft-15' style='font-weight: bold; font-size: 1.2em'>&pound".$arrayp['prodPrice']."</p>"; //display price
   echo "<p class='padLeft-15'>Left in stock: ".$arrayp['prodQuantity']."</p>"; // display stock quantity
   echo "<p class='padLeft-15'>Number to be purchased: </p>";
 
