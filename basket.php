@@ -14,19 +14,15 @@ if (isset($_POST['h_prodid'])) {
   $newprodid = $_POST['h_prodid'];
   $reququantity = $_POST['p_quantity'];
 
-
-  echo "<p>ID: ".$newprodid;
-  echo "<p>Quantity: ".$reququantity;
-
   //create a new cell in the basket session array. Index this cell with the new product id.
   //Inside the cell store the required product quantity
   $_SESSION['basket'][$newprodid]=$reququantity;
-  echo "<p>1 item added";
+  echo "<p><strong>1 item added</strong></p><br>";
 } else {
-  echo "<p>Current basket unchanged";
+  echo "<p><strong>Current basket unchanged</strong></p><br>";
 };
 
-echo "<table style='border: 0px'>";
+echo "<table id='baskettable'>";
 echo "<tr>
     <th>Product name</th>
     <th>Price</th>
@@ -34,15 +30,30 @@ echo "<tr>
     <th>Subtotal</th>
     </tr>";
 
+$total = 0;
 if (isset($_SESSION['basket'])) {
   foreach($_SESSION['basket'] as $index => $value) {
-    
-    echo "<p>Id: ".$index."quantity: ".$value;
+    $SQL="SELECT prodId, prodName, prodPrice FROM Product WHERE prodId =".$index;
+    $exeSQL=mysqli_query($conn, $SQL) or die (mysqli_error($conn));
+    $arrayp=mysqli_fetch_array($exeSQL);
+    $subtotal = $value * $arrayp['prodPrice'];
+
+    echo "<tr>
+    <td>".$arrayp['prodName']."</td>
+    <td>&pound".$arrayp['prodPrice']."</td>
+    <td>".$value."</td>
+    <td>&pound".$subtotal."</td>
+    </tr>";
+    $total += $subtotal;
   }
 } else {
   echo "<p>Basket is empty";
 }
 
+echo "<tr>
+    <th colspan=\"3\" style='text-align: right'>TOTAL</th>
+    <th>&pound".$total."</th>
+    </tr>";
 
 echo "</table>";
 
