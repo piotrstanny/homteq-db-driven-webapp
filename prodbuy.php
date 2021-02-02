@@ -50,7 +50,7 @@ $arrayp=mysqli_fetch_array($exeSQL);
   echo "<form action=basket.php method=POST>";
 
   echo "<select name=p_quantity>";
-  for ($q = 0; $q <= $arrayp['prodQuantity']; $q++) {
+  for ($q = 1; $q <= $arrayp['prodQuantity']; $q++) {
     echo "<option value=".$q.">".$q."</option>";
   }
   echo "</select>";
