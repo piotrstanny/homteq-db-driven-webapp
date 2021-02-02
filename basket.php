@@ -51,13 +51,12 @@ if (isset($_SESSION['basket'])) {
 }
 
 echo "<tr>
-    <th colspan=\"3\" style='text-align: right'>TOTAL</th>
+    <th colspan=\"3\" style='text-align: right'>TOTAL:</th>
     <th>&pound".$total."</th>
     </tr>";
 
 echo "</table>";
-
-
+echo "<a href=clearbasket.php>CLEAR BASKET</a>";
 
 include ("footfile.html"); //include head layout
 echo "</body>";
