@@ -17,6 +17,10 @@ if (isset($_POST['todelete_prodid'])) {
   $delprodid = $_POST['todelete_prodid'];
   unset($_SESSION['basket'][$delprodid]);
   echo "<p>1 item removed from the basket</p>";
+  // If basket is empty display msg.
+  if(empty($_SESSION['basket'])) {
+    echo "<p>Basket is empty</p>";
+  };
 };
 
 
@@ -28,9 +32,7 @@ if (isset($_POST['h_prodid'])) {
   //Inside the cell store the required product quantity
   $_SESSION['basket'][$newprodid]=$reququantity;
   echo "<p><strong>1 item added</strong></p>";
-} else {
-  echo "<p><strong>Current basket unchanged</strong></p>";
-};
+}
 
 echo "<table id='baskettable'>";
 echo "<tr>
@@ -41,6 +43,7 @@ echo "<tr>
     <th>Remove Item</th>
     </tr>";
 
+    // This displays basket products.
 $total = 0;
 if (isset($_SESSION['basket'])) {
   foreach($_SESSION['basket'] as $index => $value) {
@@ -63,7 +66,7 @@ if (isset($_SESSION['basket'])) {
     $total += $subtotal;
   }
 } else {
-  echo "<p>Basket is empty";
+  echo "<p>Basket is empty</p>";
 }
 
 echo "<tr>
