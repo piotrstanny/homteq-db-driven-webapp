@@ -39,16 +39,21 @@ if (empty($fname) or empty($sname) or empty($address) or empty($postcode) or emp
 {
   echo "<p><b>Sign up failed!</b></p>";
   echo "<p>All field must be filled.</p>";
+  echo "<p>Go back to <a href='signup.php'>Sign Up</a></p>";
 }
 elseif ($pwd1 != $pwd2)
 {
   echo "<p><b>Sign up failed!</b></p>";
   echo "<p>Ensure you enter the same password twice.</p>";
+  echo "<p>Go back to <a href='signup.php'>Sign Up</a></p>";
+
 }
 elseif (!preg_match($reg, $email))
 {
   echo "<p><b>Sign up failed!</b></p>";
   echo "<p>Ensure you enter correct email address.</p>";
+  echo "<p>Go back to <a href='signup.php'>Sign Up</a></p>";
+
 }
 else
 {
@@ -70,12 +75,16 @@ else
       echo "<p><b>Sign up failed!</b></p>";
       // echo "<p>Error code: ".mysqli_errno($conn)."</p>";
       echo "<p>Account with this email already exists!</p>";
+  echo "<p>Go back to <a href='signup.php'>Sign Up</a></p>";
+
     }
     if (mysqli_errno($conn) == 1064)
     {
       echo "<p><b>Sign up failed!</b></p>";
       // echo "<p>Error code: ".mysqli_errno($conn)."</p>";
       echo "<p>Invalid characters enter into the form!</p>";
+  echo "<p>Go back to <a href='signup.php'>Sign Up</a></p>";
+
     }
   }
 
