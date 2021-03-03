@@ -31,6 +31,9 @@ $pwd2 = $_POST['r_password2'];
 // echo "<p>- ".$pwd1."</p>";
 // echo "<p>- ".$pwd2."</p>";
 
+// Create regular expression variable
+$reg = "/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix";
+
 // Validate that all of the fields have values
 if (empty($fname) or empty($sname) or empty($address) or empty($postcode) or empty($telno) or empty($email) or empty($pwd1) or empty($pwd2)) 
 {
@@ -42,6 +45,11 @@ elseif ($pwd1 != $pwd2)
   echo "<p><b>Sign up failed!</b></p>";
   echo "<p>Ensure you enter the same password twice.</p>";
 }
+elseif (!preg_match($reg, $email))
+{
+  echo "<p><b>Sign up failed!</b></p>";
+  echo "<p>Ensure you enter correct email address.</p>";
+}
 else
 {
   $SQL = "insert into
@@ -49,8 +57,22 @@ else
   values ('C', '".$fname."', '".$sname."', '".$address."', '".$postcode."', '".$telno."', '".$email."', '".$pwd1."')";
 
   $exeSQL = mysqli_query($conn, $SQL) or die (mysqli_error($conn));
+  if (mysqli_errno($conn) == 0)
+  {
+    echo "<p><b>Sign up successful!</b></p>";
+    echo "<p>Your Homteq account has been created</p>";
+  }
+  else
+  {
+    if (mysqli_errno($conn) == 1062)
+    {
+      echo "<p><b>Sign up failed!</b></p>";
+      // echo "<p>Error code: ".mysqli_errno($conn)."</p>";
+      echo "<p>Account with this email already exists!</p>";
+    }
+    
+  }
 
-  echo "<p><b>Sign up successful!</b></p>";
 }
 
 
