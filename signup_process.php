@@ -30,12 +30,28 @@ echo "<p>- ".$email."</p>";
 echo "<p>- ".$pwd1."</p>";
 echo "<p>- ".$pwd2."</p>";
 
+// Validate that all of the fields have values
+if (empty($fname) or empty($sname) or empty($address) or empty($postcode) or empty($telno) or empty($email) or empty($pwd1) or empty($pwd2)) 
+{
+  echo "<p><b>Sign up failed!</b></p>";
+  echo "<p>All field must be filled.</p>";
+}
+elseif ($pwd1 != $pwd2)
+{
+  echo "<p><b>Sign up failed!</b></p>";
+  echo "<p>Ensure you enter the same password twice.</p>";
+}
+else
+{
+  echo "<p><b>Sign up successful!</b></p>";
+
+}
+
 $SQL = "insert into
 Users (userType, userFName, userSName, userAddress, userPostCode, userTelNo, userEmail, userPassword)
 values ('C', '".$fname."', '".$sname."', '".$address."', '".$postcode."', '".$telno."', '".$email."', '".$pwd1."')";
 
-
-
+$exeSQL = mysqli_query($conn, $SQL) or die (mysqli_error($conn));
 
 include ("footfile.html"); //include head layout
 echo "</body>";
