@@ -52,11 +52,12 @@ elseif (!preg_match($reg, $email))
 }
 else
 {
+  // SQL validation cases
   $SQL = "insert into
   Users (userType, userFName, userSName, userAddress, userPostCode, userTelNo, userEmail, userPassword)
   values ('C', '".$fname."', '".$sname."', '".$address."', '".$postcode."', '".$telno."', '".$email."', '".$pwd1."')";
 
-  $exeSQL = mysqli_query($conn, $SQL) or die (mysqli_error($conn));
+  $exeSQL = mysqli_query($conn, $SQL);
   if (mysqli_errno($conn) == 0)
   {
     echo "<p><b>Sign up successful!</b></p>";
@@ -70,7 +71,12 @@ else
       // echo "<p>Error code: ".mysqli_errno($conn)."</p>";
       echo "<p>Account with this email already exists!</p>";
     }
-    
+    if (mysqli_errno($conn) == 1064)
+    {
+      echo "<p><b>Sign up failed!</b></p>";
+      // echo "<p>Error code: ".mysqli_errno($conn)."</p>";
+      echo "<p>Invalid characters enter into the form!</p>";
+    }
   }
 
 }
