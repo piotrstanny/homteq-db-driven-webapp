@@ -1,5 +1,19 @@
 -- Homteq sql for creating tables
 
+drop table if exists Users;
+create table Users (
+  userId          int(4)          auto_increment,
+  userType        varchar(1)      not null,
+  userFName       varchar(50)     not null,
+  userSName       varchar(50)     not null,
+  userAddress       varchar(50)     not null,
+  userPostCode     varchar(50)     not null,
+  userTelNo       varchar(50)     not null,
+  userEmail       varchar(50)     not null unique,
+  userPassword       varchar(50)     not null,
+  constraint      u_uid_pk        primary key (userId)
+);
+
 drop table if exists Product;
 
 create table Product (
