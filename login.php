@@ -17,11 +17,11 @@ echo "<table id='baskettable'>";
 
   echo "<tr>";
     echo "<td>*Email</td>";
-    echo "<td><input type=text name=r_email size=40></td>";
+    echo "<td><input type=text name=l_email size=40></td>";
   echo "</tr>";
   echo "<tr>";
     echo "<td>*Password</td>";
-    echo "<td><input type=password name=r_password1 size=40></td>";
+    echo "<td><input type=password name=l_password size=40></td>";
   echo "</tr>";
   echo "<tr>";
     echo "<td><input type=reset value='Clear Form' id='submitbtn'></td>";
