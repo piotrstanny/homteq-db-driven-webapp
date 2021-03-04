@@ -83,8 +83,7 @@ else
       echo "<p><b>Sign up failed!</b></p>";
       // echo "<p>Error code: ".mysqli_errno($conn)."</p>";
       echo "<p>Invalid characters enter into the form!</p>";
-  echo "<p>Go back to <a href='signup.php'>Sign Up</a></p>";
-
+      echo "<p>Go back to <a href='signup.php'>Sign Up</a></p>";
     }
   }
 

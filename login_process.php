@@ -14,9 +14,46 @@ $loginEmail = $_POST['l_email'];
 $loginPassword = $_POST['l_password'];
 
 // Displaying values to confirm catching them correctly
-echo "<p>Values entered:</p>";
-echo "<p>- ".$loginEmail."</p>";
-echo "<p>- ".$loginPassword."</p>";
+// echo "<p>Values entered:</p>";
+// echo "<p>- ".$loginEmail."</p>";
+// echo "<p>- ".$loginPassword."</p>";
+
+// Validate user input
+if (empty($loginEmail) or empty($loginPassword))
+{
+  echo "<p><b>Log in failed!</b></p>";
+  echo "<p>Login details entered are incorrect!<br>Try again.</p>";
+  echo "<p>Try again: <a href='login.php'>Sign In</a></p>";
+}
+else
+{
+  $loginSQL = "SELECT *
+              FROM Users
+              WHERE userEmail='".$loginEmail."'";
+  $exeLoginSQL = mysqli_query($conn, $loginSQL) or die (mysqli_error($conn));
+
+  // Determine number of records retrieved by SQL query
+  $noRecs = mysqli_num_rows($exeLoginSQL);
+
+  if ($noRecs == 0) {
+    echo "<p><b>Log in failed!</b></p>";
+    echo "<p>Email address was not recognised.</p>";
+    echo "<p>Try again: <a href='login.php'>Sign In</a></p>";
+  }
+  else {
+    $userArray = mysqli_fetch_array($exeLoginSQL);
+    if ($userArray['userPassword'] != $loginPassword) {
+      echo "<p><b>Log in failed!</b></p>";
+      echo "<p>The password was incorrect.</p>";
+      echo "<p>Try again: <a href='login.php'>Sign In</a></p>";
+    }
+    else {
+    echo "<p><b>Log in sucess!</b></p>";
+
+    }
+  }
+
+}
 
 include ("footfile.html"); //include head layout
 echo "</body>";
