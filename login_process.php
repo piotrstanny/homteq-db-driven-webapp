@@ -1,7 +1,8 @@
 <?php
+session_start();
 include ("db.php");
 
-$pagename="Signing In Results"; //Create and populate a variable called $pagename
+$pagename="Login Results"; //Create and populate a variable called $pagename
 echo "<link rel=stylesheet type=text/css href=mystylesheet.css>"; //Call in stylesheet
 echo "<title>".$pagename."</title>"; //display name of the page as window title
 
@@ -48,8 +49,19 @@ else
       echo "<p>Try again: <a href='login.php'>Sign In</a></p>";
     }
     else {
-    echo "<p><b>Log in sucess!</b></p>";
+      echo "<p><b>Log in sucess!</b></p>";
+      
+      // Create variables for the current session user details
+      $_SESSION['userid'] = $userArray['userId'];
+      $_SESSION['fname'] = $userArray['userFName'];
+      $_SESSION['sname'] = $userArray['userSName'];
+      $_SESSION['usertype'] = $userArray['userType'];
 
+      echo "<p>Welcome ".$_SESSION['fname']."!</p>";
+
+      if ($_SESSION['usertype'] == "C") {
+        echo "<p>Please continue shopping or finalise your order!</p>";
+      }
     }
   }
 
