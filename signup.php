@@ -46,8 +46,8 @@ echo "<table id='baskettable'>";
     echo "<td><input type=password name=r_password2 size=40></td>";
   echo "</tr>";
   echo "<tr>";
-    echo "<td><input type=submit value='Sign Up' id='submitbtn'></td>";
     echo "<td><input type=reset value='Clear Form' id='submitbtn'></td>";
+    echo "<td><input type=submit value='Sign Up' id='submitbtn'></td>";
   echo "</tr>";
 
 echo "</table>";
