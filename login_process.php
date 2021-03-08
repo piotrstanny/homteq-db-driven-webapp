@@ -61,7 +61,9 @@ else
       echo "<p>Welcome ".$_SESSION['fname']."!</p>";
 
       if ($_SESSION['usertype'] == "C") {
-        echo "<p>Please continue shopping or finalise your order!</p>";
+        echo "<p>Please continue shopping for <a href='index.php'>HOMTEQ</a></p>";
+        echo "<p>View your <a href='basket.php'>Smart Basket</a></p>";
+
       }
     }
   }
