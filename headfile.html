@@ -12,16 +12,32 @@
 </div>
 <div id="navigation">
 <ul>
-<div>
-<li><a href='index.php'>Home Tech</a></li>
-<li><a href='aboutus.php'>About Us</a></li>
-<li><a href='signup.php'>Sign Up</a></li>
-<li><a href='login.php'>Login</a></li>
-</div>
-<div>
-<li><a href='basket.php'>Smart Basket</a></li>
-<li><a href='login.php'>Staff Login</a></li>
-</div>
+
+<?php 
+if (isset($_SESSION['userid'])) {
+  echo "
+  <div>
+    <li><a href='index.php'>Home Tech</a></li>
+    <li><a href='aboutus.php'>About Us</a></li>
+    <li><a href='logout.php'>Log Out</a></li>
+    <li align=right><a href='basket.php'>Smart Basket</a></li>
+  </div>
+  ";
+}
+else {
+  echo "
+  <div>
+    <li><a href='index.php'>Home Tech</a></li>
+    <li><a href='aboutus.php'>About Us</a></li>
+    <li><a href='signup.php'>Sign Up</a></li>
+    <li><a href='login.php'>Login</a></li>
+    <li align=right><a href='basket.php'>Smart Basket</a></li>
+    <li align=right><a href='login.php'>Staff Login</a></li>
+  </div>
+  ";
+}
+;?>
+
 </ul>
 </div>
 </div>
