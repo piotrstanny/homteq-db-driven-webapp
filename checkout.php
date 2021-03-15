@@ -45,9 +45,10 @@ if (mysqli_errno($conn) != 0) {
     <th>Subtotal</th>
     </tr>";
 
-    // This displays basket products.
+    // Make sure basket is not empty
   $total = 0;
   if (isset($_SESSION['basket'])) {
+    // Iterate through basket items to insert records into Order Lines table
     foreach($_SESSION['basket'] as $index => $value) {
 
       // Retrieve product details from DB for the display of the confirmation
