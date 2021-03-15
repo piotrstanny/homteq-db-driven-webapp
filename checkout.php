@@ -36,6 +36,55 @@ if (mysqli_errno($conn) != 0) {
   // Create local variable to assign the last order number to it
   $lastOrderNo = $arrayOrderNo['lastOrder'];
   echo "<br><p> Order Ref No: ".$lastOrderNo."</p>";
+
+  echo "<table id='baskettable'>";
+  echo "<tr>
+    <th>Product name</th>
+    <th>Price</th>
+    <th>Quantity</th>
+    <th>Subtotal</th>
+    </tr>";
+
+    // This displays basket products.
+  $total = 0;
+  if (isset($_SESSION['basket'])) {
+    foreach($_SESSION['basket'] as $index => $value) {
+
+      // Retrieve product details from DB for the display of the confirmation
+      $SQL="SELECT prodId, prodName, prodPrice FROM Product WHERE prodId =".$index;
+      $exeSQL=mysqli_query($conn, $SQL) or die (mysqli_error($conn));
+      $arrayp=mysqli_fetch_array($exeSQL);
+      $subtotal = $value * $arrayp['prodPrice'];
+
+      echo "<tr>
+      <td>".$arrayp['prodName']."</td>
+      <td>&pound".number_format($arrayp['prodPrice'],2)."</td>
+      <td>".$value."</td>
+      <td>&pound".number_format($subtotal, 2)."</td>";
+      $total += $subtotal;
+
+      // Insert Order Line into DB
+      $orderLineSQL = "Insert into
+                      Order_Line (orderNo, prodId, quantityOrdered, subTotal)
+                      values (".$lastOrderNo.", ".$index.", ".$value.", ".$subtotal.")
+                      ";
+      $exeOrderLineSQL = mysqli_query($conn, $orderLineSQL) or die (mysqli_error($conn));
+    }
+  } else {
+    echo "<p>Whoops! Empty order has been placed.</p>";
+  }
+  echo "<tr>
+      <th colspan=\"3\" style='text-align: right'>TOTAL:</th>
+      <th>&pound".number_format($total, 2)."</th>
+      </tr>";
+
+  echo "</table>";
+
+  // Update the Order total value in DB
+  $updateOrderSQL = "update Orders
+                    set orderTotal = ".$total."
+                    where orderNo = ".$lastOrderNo;
+  $exeUpdateOrderSQL = mysqli_query($conn, $updateOrderSQL) or die (mysqli_error($conn));
 }
 
 include ("footfile.html"); //include head layout
