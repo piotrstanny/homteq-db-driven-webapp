@@ -1,5 +1,28 @@
 -- Homteq sql for creating tables
 
+drop table if exists Orders;
+create table Orders (
+  orderNo         int(4)        auto_increment,
+  userId          int(4)        not null,
+  orderDateTime   datetime      not null,
+  orderTotal      decimal(8,2)  default 0.00  not null,
+  orderStatus     varchar(50)   not null,
+  constraint      o_ono_pk      primary key (orderNo),
+  constraint      o_uid_fk      foreign key (userId)  references Users(userId)
+);
+
+drop table if exists Order_Line;
+create table Order_Line (
+  orderLineId         int(4)        auto_increment,
+  orderNo             int(4)        not null,
+  prodId              int(4)        not null,
+  quantityOrdered     int(4)        not null,
+  subTotal            decimal(8,2)  default 0.00            not null,
+  constraint          ol_oli_pk     primary key (orderLineId),
+  constraint          o_ono_fk      foreign key (orderNo)   references Orders(OrderNo),
+  constraint          o_pi_fk       foreign key (prodId)    references Product(prodId)
+);
+
 drop table if exists Users;
 create table Users (
   userId          int(4)          auto_increment,
