@@ -34,7 +34,7 @@ if (mysqli_errno($conn) != 0) {
   // Create array of records containing one value - the last order number
   $arrayOrderNo = mysqli_fetch_array($exelastOrderSQL);
   // Create local variable to assign the last order number to it
-  $lastOrderNo = $arrayOrderNo['lastOrder'];
+  $lastOrderNo = $arrayOrderNo['max(orderNo)'];
   echo "<br><p> Order Ref No: ".$lastOrderNo."</p>";
 
   echo "<table id='baskettable'>";
@@ -52,7 +52,9 @@ if (mysqli_errno($conn) != 0) {
     foreach($_SESSION['basket'] as $index => $value) {
 
       // Retrieve product details from DB for the display of the confirmation
-      $SQL="SELECT prodId, prodName, prodPrice FROM Product WHERE prodId =".$index;
+      $SQL="SELECT prodId, prodName, prodPrice 
+            FROM Product 
+            WHERE prodId =".$index;
       $exeSQL=mysqli_query($conn, $SQL) or die (mysqli_error($conn));
       $arrayp=mysqli_fetch_array($exeSQL);
       $subtotal = $value * $arrayp['prodPrice'];
